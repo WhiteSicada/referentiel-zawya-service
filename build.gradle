@@ -21,7 +21,7 @@ repositories {
 dependencies {
 
     // ACTUATOR
-//    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
     // JPA
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
@@ -42,13 +42,25 @@ dependencies {
 
     // DEVTOOLS
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
-//    runtimeOnly 'org.postgresql:postgresql'
-    implementation 'mysql:mysql-connector-java:8.0.28'
-
+    implementation 'mysql:mysql-connector-java:8.0.30'
 
     // TEST
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-//    testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+
+    // SPRING CLOUD CONFIG CLIENT
+    implementation 'org.springframework.cloud:spring-cloud-starter-config'
+}
+
+// SPRING CLOUD CONFIG CLIENT
+ext {
+    set('springCloudVersion', "2021.0.4")
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
 }
 
 tasks.named('test') {
