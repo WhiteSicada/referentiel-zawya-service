@@ -1,5 +1,7 @@
+# ====== Spring configuration ====== #
 spring:
   application:
     name: zawya-referentiel-service
   config:
     import: optional:configserver:http://localhost:8888/
+
