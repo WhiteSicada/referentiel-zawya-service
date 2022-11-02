@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: referentiel-zawya-service
+  datasource:
+    password: kun123456789+
+    url: jdbc:mysql://localhost:3306/zawyadb
+    username: root
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
