@@ -50,9 +50,12 @@ dependencies {
 
     // SPRING CLOUD CONFIG CLIENT
     implementation 'org.springframework.cloud:spring-cloud-starter-config'
+
+    // SPRING CLOUD DISCOVERY CLIENT
+    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 }
 
-// SPRING CLOUD CONFIG CLIENT
+// SPRING CLOUD CONFIG CLIENT + SPRING CLOUD DISCOVERY CLIENT
 ext {
     set('springCloudVersion', "2021.0.4")
 }
