@@ -3,7 +3,7 @@ package com.referentiel.zawya.service.impl;
 import com.referentiel.zawya.exception.NotFoundException;
 import com.referentiel.zawya.mapper.FakirMapper;
 import com.referentiel.zawya.model.Fakir;
-import com.referentiel.zawya.model.Zawya;
+import com.referentiel.zawya.model.Zawiya;
 import com.referentiel.zawya.payload.request.FakirRequest;
 import com.referentiel.zawya.repository.FakirRepository;
 import com.referentiel.zawya.repository.ZawyaRepository;
@@ -26,18 +26,18 @@ public class FakirServiceImpl implements FakirService {
 
     @Override
     public List<Fakir> getAllFoukaras(Long zawyaId) {
-        Zawya zawya = zawyaRepository.findById(zawyaId)
+        Zawiya zawiya = zawyaRepository.findById(zawyaId)
                 .orElseThrow(() -> new NotFoundException("Zawya not found !"));
-        return zawya.getFoukaras();
+        return zawiya.getFoukaras();
     }
 
     @Override
     public Fakir createFakir(Long zawyaId, FakirRequest fakirRequest) {
-        Zawya zawya = zawyaRepository.findById(zawyaId)
+        Zawiya zawiya = zawyaRepository.findById(zawyaId)
                 .orElseThrow(() -> new NotFoundException("Zawya not found !"));
-        zawya.addFakir(FakirMapper.toEntity(fakirRequest));
-        zawya = zawyaRepository.save(zawya);
-        List<Fakir> foukaras = zawya.getFoukaras();
+        zawiya.addFakir(FakirMapper.toEntity(fakirRequest));
+        zawiya = zawyaRepository.save(zawiya);
+        List<Fakir> foukaras = zawiya.getFoukaras();
         return foukaras.get(foukaras.size() - 1);
     }
 
@@ -53,9 +53,9 @@ public class FakirServiceImpl implements FakirService {
     public void deleteFakir(Long fakirId) {
         Fakir fakir = fakirRepository.findById(fakirId)
                 .orElseThrow(() -> new NotFoundException("Fakir not found !"));
-        Zawya zawya = fakir.getZawya();
-        zawya.removeFakir(fakir);
-        zawyaRepository.save(zawya);
+        Zawiya zawiya = fakir.getZawiya();
+        zawiya.removeFakir(fakir);
+        zawyaRepository.save(zawiya);
         fakirRepository.delete(fakir);
     }
 }

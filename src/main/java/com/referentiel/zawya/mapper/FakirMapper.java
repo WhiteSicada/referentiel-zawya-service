@@ -1,12 +1,8 @@
 package com.referentiel.zawya.mapper;
 
 import com.referentiel.zawya.model.Fakir;
-import com.referentiel.zawya.model.Zawya;
 import com.referentiel.zawya.payload.request.FakirRequest;
-import com.referentiel.zawya.payload.request.ZawyaRequest;
 import com.referentiel.zawya.payload.response.FakirResponse;
-import com.referentiel.zawya.payload.response.ZawyaDetailedResponse;
-import com.referentiel.zawya.payload.response.ZawyaResponse;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,7 +18,7 @@ public class FakirMapper {
         response.setIdCard(fakir.getIdCard());
         response.setProfession(fakir.getProfession());
         response.setAddress(fakir.getAddress());
-        response.setZawya(fakir.getZawya().getName());
+        response.setZawya(fakir.getZawiya().getName());
         response.setMacPhoneAddress(fakir.getMacPhoneAddress());
         return response;
     }

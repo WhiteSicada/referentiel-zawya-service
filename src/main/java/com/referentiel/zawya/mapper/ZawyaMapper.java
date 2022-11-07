@@ -1,50 +1,66 @@
 package com.referentiel.zawya.mapper;
 
-import com.referentiel.zawya.model.Zawya;
+import com.referentiel.zawya.model.Zawiya;
 import com.referentiel.zawya.payload.request.ZawyaRequest;
-import com.referentiel.zawya.payload.response.ZawyaDetailedResponse;
+import com.referentiel.zawya.payload.response.ZawiyaDetailedResponse;
 import com.referentiel.zawya.payload.response.ZawyaResponse;
+import com.referentiel.zawya.utils.ImageUtility;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class ZawyaMapper {
 
-    public static ZawyaResponse toDto(Zawya zawya){
-        ZawyaResponse response = new ZawyaResponse();
-        response.setId(zawya.getId());
-        response.setName(zawya.getName());
-        response.setCity(zawya.getCity());
-        response.setCountry(zawya.getCountry());
-        return response;
+    public static ZawyaResponse toDto(Zawiya zawiya) {
+        return ZawyaResponse.builder()
+                .id(zawiya.getId())
+                .name(zawiya.getName())
+                .city(zawiya.getCity())
+                .country(zawiya.getCountry())
+                .image(ImageUtility.decompressImage(zawiya.getImage()))
+                .build();
     }
 
-    public static List<ZawyaResponse> toDtos(List<Zawya> zawayas){
+    public static List<ZawyaResponse> toDtos(List<Zawiya> zawayas) {
         return zawayas.stream().map(ZawyaMapper::toDto).collect(Collectors.toList());
     }
 
 
-    public static Zawya toEntity(ZawyaRequest request){
-        Zawya response = new Zawya();
-        response.setName(request.getName());
-        response.setCity(request.getCity());
-        response.setCountry(request.getCountry());
-        return response;
+    public static Zawiya toEntity(ZawyaRequest request, MultipartFile image) throws IOException {
+        return Zawiya.builder()
+                .name(request.getName())
+                .city(request.getCity())
+                .country(request.getCountry())
+                .imageName(image.getOriginalFilename())
+                .imageType(image.getContentType())
+                .image(ImageUtility.compressImage(image.getBytes()))
+                .build();
     }
 
-    public static void oldToNew(Zawya oldZawya, ZawyaRequest zawyaRequest) {
-        oldZawya.setName(zawyaRequest.getName());
-        oldZawya.setCity(zawyaRequest.getCity());
-        oldZawya.setCountry(zawyaRequest.getCountry());
+    public static void oldToNew(Zawiya oldZawiya, ZawyaRequest zawyaRequest) {
+        oldZawiya.setName(zawyaRequest.getName());
+        oldZawiya.setCity(zawyaRequest.getCity());
+        oldZawiya.setCountry(zawyaRequest.getCountry());
     }
 
-    public static ZawyaDetailedResponse toDetailedDto(Zawya zawya) {
-        ZawyaDetailedResponse response = new ZawyaDetailedResponse();
-        response.setId(zawya.getId());
-        response.setName(zawya.getName());
-        response.setCity(zawya.getCity());
-        response.setCountry(zawya.getCountry());
-        response.setFoukaras(FakirMapper.toDtos(zawya.getFoukaras()));
-        return response;
+    public static ZawiyaDetailedResponse toDetailedDto(Zawiya zawiya) {
+        return ZawiyaDetailedResponse.builder()
+                .id(zawiya.getId())
+                .name(zawiya.getName())
+                .city(zawiya.getCity())
+                .country(zawiya.getCountry())
+                .image(ImageUtility.decompressImage(zawiya.getImage()))
+                .foukaras(FakirMapper.toDtos(zawiya.getFoukaras()))
+                .build();
+    }
+
+    public static ZawyaRequest toRequest(String name, String city, String country) {
+        return ZawyaRequest.builder()
+                .name(name)
+                .city(city)
+                .country(country)
+                .build();
     }
 }

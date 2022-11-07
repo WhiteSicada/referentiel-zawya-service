@@ -1,15 +1,19 @@
 package com.referentiel.zawya.model;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 
-@Data
 @Entity
+@Data
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class Fakir {
 
     @Id
@@ -34,7 +38,7 @@ public class Fakir {
 
     // A CAR BELONGS TO A STUDENT
     @ManyToOne()
-    @JoinColumn(name = "zawya_id")
-    private Zawya zawya;
+    @JoinColumn(name = "zawiya_id")
+    private Zawiya zawiya;
 
 }

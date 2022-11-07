@@ -53,6 +53,9 @@ dependencies {
 
     // SPRING CLOUD DISCOVERY CLIENT
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+
+    // SPRING DOC OPEN API
+    implementation 'org.springdoc:springdoc-openapi-ui:1.6.12'
 }
 
 // SPRING CLOUD CONFIG CLIENT + SPRING CLOUD DISCOVERY CLIENT
