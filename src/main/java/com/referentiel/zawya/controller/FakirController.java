@@ -20,7 +20,7 @@ public class FakirController {
     @Autowired
     private FakirService fakirService;
 
-    // todo : ADD DOCUMENTATION
+
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/zawyas/{zawyaId}/foukaras")
     public List<FakirResponse> getAllFoukaras(@PathVariable Long zawyaId) {
@@ -28,7 +28,7 @@ public class FakirController {
         return FakirMapper.toDtos(allFoukaras);
     }
 
-    // todo : ADD DOCUMENTATION
+
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/zawyas/{zawyaId}/foukaras")
     public FakirResponse createFakir(@PathVariable Long zawyaId, @Valid @RequestBody FakirRequest fakirRequest) {
@@ -36,7 +36,7 @@ public class FakirController {
         return FakirMapper.toDto(fakir);
     }
 
-    // todo : ADD DOCUMENTATION
+
     @ResponseStatus(HttpStatus.OK)
     @PutMapping("/foukaras/{fakirId}")
     public FakirResponse updateFakir(@PathVariable Long fakirId, @Valid @RequestBody FakirRequest fakirRequest) {
@@ -44,7 +44,7 @@ public class FakirController {
         return FakirMapper.toDto(fakir);
     }
 
-    // todo : ADD DOCUMENTATION
+
     @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("/foukaras/{fakirId}")
     public void deleteFakir(@PathVariable Long fakirId) {

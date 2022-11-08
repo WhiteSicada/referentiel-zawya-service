@@ -29,6 +29,9 @@ public class Zawiya {
     @Column(name = "city")
     private String city;
 
+    @Column(name = "address")
+    private String address;
+
     @Column(name = "imageName")
     private String imageName;
 

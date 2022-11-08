@@ -19,6 +19,7 @@ public class ZawyaMapper {
                 .name(zawiya.getName())
                 .city(zawiya.getCity())
                 .country(zawiya.getCountry())
+                .address(zawiya.getAddress())
                 .image(ImageUtility.decompressImage(zawiya.getImage()))
                 .build();
     }
@@ -52,6 +53,7 @@ public class ZawyaMapper {
                 .city(zawiya.getCity())
                 .country(zawiya.getCountry())
                 .image(ImageUtility.decompressImage(zawiya.getImage()))
+                .address(zawiya.getAddress())
                 .foukaras(FakirMapper.toDtos(zawiya.getFoukaras()))
                 .build();
     }
