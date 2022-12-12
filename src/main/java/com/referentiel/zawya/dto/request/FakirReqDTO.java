@@ -1,15 +1,11 @@
-package com.referentiel.zawya.payload.response;
+package com.referentiel.zawya.dto.request;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 @Data
-@Builder
 @NoArgsConstructor
-@AllArgsConstructor
-public class FakirResponse {
-    private Long id;
+public class FakirReqDTO {
     private String firstName;
     private String lastName;
     private String email;
@@ -17,6 +13,4 @@ public class FakirResponse {
     private String idCard;
     private String profession;
     private String address;
-    private String macPhoneAddress;
-    private String zawya;
 }

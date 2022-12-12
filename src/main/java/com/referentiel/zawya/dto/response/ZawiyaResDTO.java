@@ -1,4 +1,4 @@
-package com.referentiel.zawya.payload.response;
+package com.referentiel.zawya.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ZawyaResponse {
+public class ZawiyaResDTO {
     private Long id;
     private String name;
     private String country;

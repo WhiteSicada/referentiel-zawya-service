@@ -1,4 +1,4 @@
-package com.referentiel.zawya.payload.request;
+package com.referentiel.zawya.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ZawyaRequest {
+public class ZawyaReqDTO {
     private String name;
     private String country;
     private String city;
+    private String address;
 }
