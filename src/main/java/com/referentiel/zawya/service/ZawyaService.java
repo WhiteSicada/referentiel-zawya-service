@@ -1,7 +1,7 @@
 package com.referentiel.zawya.service;
 
 import com.referentiel.zawya.model.Zawiya;
-import com.referentiel.zawya.payload.request.ZawyaRequest;
+import com.referentiel.zawya.dto.request.ZawyaReqDTO;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -11,9 +11,9 @@ public interface ZawyaService {
 
     List<Zawiya> getAllZawiyas();
 
-    Zawiya createZawiya(ZawyaRequest zawyaRequest, MultipartFile image) throws IOException;
+    Zawiya createZawiya(ZawyaReqDTO zawyaReqDTO, MultipartFile image) throws IOException;
 
-    Zawiya updateZawiya(Long zawyaId, ZawyaRequest zawyaRequest);
+    Zawiya updateZawiya(Long zawyaId, ZawyaReqDTO zawyaReqDTO);
 
     void deleteZawiya(Long zawyaId);
 

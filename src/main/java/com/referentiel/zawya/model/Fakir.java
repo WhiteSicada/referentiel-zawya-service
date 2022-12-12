@@ -34,8 +34,6 @@ public class Fakir {
 
     private String address;
 
-    private String macPhoneAddress;
-
     // A CAR BELONGS TO A STUDENT
     @ManyToOne()
     @JoinColumn(name = "zawiya_id")

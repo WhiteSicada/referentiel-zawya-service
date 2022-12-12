@@ -1,15 +1,16 @@
 package com.referentiel.zawya.mapper;
 
+import com.referentiel.zawya.dto.BaseResponseDTO;
 import com.referentiel.zawya.model.Fakir;
-import com.referentiel.zawya.payload.request.FakirRequest;
-import com.referentiel.zawya.payload.response.FakirResponse;
+import com.referentiel.zawya.dto.request.FakirReqDTO;
+import com.referentiel.zawya.dto.response.FakirResDTO;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class FakirMapper {
-    public static FakirResponse toDto(Fakir fakir) {
-        FakirResponse response = new FakirResponse();
+public class FakirMapper extends BaseMapper {
+    public static FakirResDTO toDto(Fakir fakir) {
+        FakirResDTO response = new FakirResDTO();
         response.setId(fakir.getId());
         response.setFirstName(fakir.getFirstName());
         response.setLastName(fakir.getLastName());
@@ -19,30 +20,30 @@ public class FakirMapper {
         response.setProfession(fakir.getProfession());
         response.setAddress(fakir.getAddress());
         response.setZawya(fakir.getZawiya().getName());
-        response.setMacPhoneAddress(fakir.getMacPhoneAddress());
         return response;
     }
 
-    public static List<FakirResponse> toDtos(List<Fakir> foukaras) {
+    public static List<FakirResDTO> toDTOs(List<Fakir> foukaras) {
         return foukaras.stream().map(FakirMapper::toDto).collect(Collectors.toList());
     }
 
 
-    public static Fakir toEntity(FakirRequest fakirRequest) {
+    public static Fakir toEntity(FakirReqDTO fakirReqDTO) {
         Fakir response = new Fakir();
-        oldToNew(response,fakirRequest);
+        oldToNew(response, fakirReqDTO);
         return response;
     }
 
-    public static void oldToNew(Fakir oldFakir, FakirRequest fakirRequest) {
-        oldFakir.setFirstName(fakirRequest.getFirstName());
-        oldFakir.setLastName(fakirRequest.getLastName());
-        oldFakir.setEmail(fakirRequest.getEmail());
-        oldFakir.setPhoneNumber(fakirRequest.getPhoneNumber());
-        oldFakir.setIdCard(fakirRequest.getIdCard());
-        oldFakir.setProfession(fakirRequest.getProfession());
-        oldFakir.setAddress(fakirRequest.getAddress());
-        oldFakir.setMacPhoneAddress(fakirRequest.getMacPhoneAddress());
+    public static Fakir oldToNew(Fakir oldFakir, FakirReqDTO fakirReqDTO) {
+        return ObjectMapperUtils.map(fakirReqDTO,oldFakir);
     }
 
+
+    public static BaseResponseDTO toFakirDTOs(List<Fakir> foukaras) {
+        return toBaseResponse("success", toDTOs(foukaras));
+    }
+
+    public static BaseResponseDTO toFakirDTO(Fakir fakir) {
+        return toBaseResponse("success", toDto(fakir));
+    }
 }

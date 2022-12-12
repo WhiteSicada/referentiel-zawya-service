@@ -15,10 +15,10 @@ import java.util.Date;
 public class ControllerAdvice {
 
     @ExceptionHandler(value = {NotFoundException.class, AlreadyExistsException.class})
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorMessage handleTokenRefreshException(Exception ex, WebRequest request) {
         return new ErrorMessage(
-                HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                HttpStatus.BAD_REQUEST.value(),
                 new Date(),
                 ex.getMessage(),
                 request.getDescription(false));

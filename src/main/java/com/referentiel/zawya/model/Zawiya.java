@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -43,7 +42,7 @@ public class Zawiya {
 
     // STUDENT HAVE MANY CARS
     @OneToMany(mappedBy = "zawiya", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Fakir> foukaras = new ArrayList<>();
+    private List<Fakir> foukaras;
 
 
     public void addFakir(Fakir fakir) {

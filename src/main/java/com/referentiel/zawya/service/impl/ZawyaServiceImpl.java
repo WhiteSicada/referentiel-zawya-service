@@ -4,22 +4,26 @@ import com.referentiel.zawya.exception.AlreadyExistsException;
 import com.referentiel.zawya.exception.NotFoundException;
 import com.referentiel.zawya.mapper.ZawyaMapper;
 import com.referentiel.zawya.model.Zawiya;
-import com.referentiel.zawya.payload.request.ZawyaRequest;
+import com.referentiel.zawya.dto.request.ZawyaReqDTO;
 import com.referentiel.zawya.repository.ZawyaRepository;
 import com.referentiel.zawya.service.ZawyaService;
-import com.referentiel.zawya.utils.Constants;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
 
+import static com.referentiel.zawya.utils.Constants.BaseResponseErrorMessages.getZawiyaAlreadyExists;
+import static com.referentiel.zawya.utils.Constants.BaseResponseErrorMessages.getZawiyaNotFound;
+
+@Slf4j
 @Service
+@RequiredArgsConstructor
 public class ZawyaServiceImpl implements ZawyaService {
 
-    @Autowired
-    private ZawyaRepository zawyaRepository;
+    private final ZawyaRepository zawyaRepository;
 
     @Override
     public List<Zawiya> getAllZawiyas() {
@@ -27,35 +31,28 @@ public class ZawyaServiceImpl implements ZawyaService {
     }
 
     @Override
-    public Zawiya createZawiya(ZawyaRequest zawyaRequest, MultipartFile image) throws IOException {
-        if (zawyaRepository.existsByName(zawyaRequest.getName())) {
-            throw new AlreadyExistsException(Constants.BaseResponseErrorMessages.getZawiyaAlreadyExists());
-        }
-        return zawyaRepository.save(ZawyaMapper.toEntity(zawyaRequest,image));
+    public Zawiya createZawiya(ZawyaReqDTO zawyaReqDTO, MultipartFile image) throws IOException {
+        if (zawyaRepository.existsByName(zawyaReqDTO.getName()))
+            throw new AlreadyExistsException(getZawiyaAlreadyExists());
+        return zawyaRepository.save(ZawyaMapper.toEntity(zawyaReqDTO, image));
     }
 
     @Override
-    public Zawiya updateZawiya(Long zawyaId, ZawyaRequest zawyaRequest) {
-        Zawiya zawiya = zawyaRepository.findById(zawyaId)
-                .orElseThrow(() -> new NotFoundException(Constants.BaseResponseErrorMessages.getZawiyaNotFound()));
-        ZawyaMapper.oldToNew(zawiya, zawyaRequest);
+    public Zawiya updateZawiya(Long zawyaId, ZawyaReqDTO zawyaReqDTO) {
+        Zawiya zawiya = zawyaRepository.findById(zawyaId).orElseThrow(() -> new NotFoundException(getZawiyaNotFound()));
+        ZawyaMapper.oldToNew(zawiya, zawyaReqDTO);
         return zawyaRepository.save(zawiya);
     }
 
     @Override
     public void deleteZawiya(Long zawyaId) {
-        if (!zawyaRepository.existsById(zawyaId)) {
-            throw new NotFoundException(Constants.BaseResponseErrorMessages.getZawiyaNotFound());
-        }
+        if (!zawyaRepository.existsById(zawyaId))
+            throw new NotFoundException(getZawiyaNotFound());
         zawyaRepository.deleteById(zawyaId);
-        if (zawyaRepository.existsById(zawyaId)) {
-            throw new AlreadyExistsException(Constants.BaseResponseErrorMessages.getZawiyaWasNotDeleted());
-        }
     }
 
     @Override
     public Zawiya getZawiya(Long zawyaId) {
-        return zawyaRepository.findById(zawyaId)
-                .orElseThrow(() -> new NotFoundException(Constants.BaseResponseErrorMessages.getZawiyaNotFound()));
+        return zawyaRepository.findById(zawyaId).orElseThrow(() -> new NotFoundException(getZawiyaNotFound()));
     }
 }
